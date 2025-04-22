@@ -1,0 +1,45 @@
+.about-container {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.7;
+    color: #333;
+  }
+  
+  .about-title {
+    text-align: center;
+    font-size: 36px;
+    color: #2e7d32;
+    margin-bottom: 20px;
+  }
+  
+  .about-highlight {
+    color: #388e3c;
+    font-weight: bold;
+  }
+  
+  .about-section {
+    margin-bottom: 30px;
+  }
+  
+  .about-section h3 {
+    font-size: 22px;
+    color: #2e7d32;
+    margin-bottom: 10px;
+  }
+  
+  .about-section p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .about-image {
+    width: 100%;
+    border-radius: 12px;
+    margin-top: 20px;
+  }
+  

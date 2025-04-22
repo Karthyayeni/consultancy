@@ -1,0 +1,218 @@
+/* MyOrders.css - Colorful Elegant Design */
+
+:root {
+    --gradient-bg: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+    --primary: #4f46e5;
+    --secondary: #06b6d4;
+    --accent: #f97316;
+    --success: #22c55e;
+    --info: #3b82f6;
+    --warning: #eab308;
+  }
+  
+  .my-orders-section {
+    max-width: 960px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: var(--gradient-bg);
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  }
+  
+  .my-orders-section h2 {
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    color: #2d3748;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    border-bottom: 3px solid rgba(99, 102, 241, 0.3);
+    padding-bottom: 1rem;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .orders-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .order-card {
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .order-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary), var(--secondary));
+  }
+  
+  .order-card:nth-child(3n+1)::before {
+    background: linear-gradient(to bottom, var(--primary), var(--info));
+  }
+  
+  .order-card:nth-child(3n+2)::before {
+    background: linear-gradient(to bottom, var(--accent), var(--warning));
+  }
+  
+  .order-card:nth-child(3n+3)::before {
+    background: linear-gradient(to bottom, var(--success), var(--secondary));
+  }
+  
+  .order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+  }
+  
+  .order-card p {
+    margin-bottom: 0.75rem;
+    color: #4b5563;
+    font-size: 0.95rem;
+  }
+  
+  .order-card p strong {
+    color: #1f2937;
+    font-weight: 600;
+  }
+  
+  /* Colorful total amount */
+  .order-card p:nth-child(2) {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .order-card p:nth-child(2) strong {
+    color: var(--primary);
+  }
+  
+  /* Style for date */
+  .order-card p:nth-child(3) {
+    color: #6b7280;
+    font-size: 0.85rem;
+  }
+  
+  .order-card ul {
+    margin-top: 1rem;
+    padding-left: 1.25rem;
+    border-top: 1px dashed rgba(99, 102, 241, 0.3);
+    padding-top: 1rem;
+  }
+  
+  .order-card li {
+    margin-bottom: 0.75rem;
+    color: #4b5563;
+    font-size: 0.9rem;
+    position: relative;
+  }
+  
+  .order-card li::before {
+    content: "•";
+    position: absolute;
+    left: -1rem;
+    font-size: 1.2rem;
+    color: var(--accent);
+  }
+  
+  .order-card:nth-child(3n+1) li::before {
+    color: var(--primary);
+  }
+  
+  .order-card:nth-child(3n+2) li::before {
+    color: var(--accent);
+  }
+  
+  .order-card:nth-child(3n+3) li::before {
+    color: var(--success);
+  }
+  
+  /* Loading state */
+  .my-orders-section p:only-child {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #6b7280;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Empty state */
+  .orders-list p:only-child {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #6b7280;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid var(--warning);
+  }
+  
+  /* Media queries for responsiveness */
+  @media (max-width: 768px) {
+    .my-orders-section {
+      padding: 1.5rem;
+      margin: 1.5rem;
+    }
+    
+    .orders-list {
+      grid-template-columns: 1fr;
+    }
+    
+    .my-orders-section h2 {
+      font-size: 1.8rem;
+    }
+  }
+  
+  /* Subtle animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .order-card {
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: calc(0.1s * var(--i, 0));
+  }
+  
+  /* Price colorization */
+  .order-card li:nth-of-type(odd) {
+    color: #4b5563;
+  }
+  
+  .order-card li:nth-of-type(even) {
+    color: #374151;
+  }
+  
+  /* Add a subtle rainbow footer to cards */
+  .order-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(
+      to right,
+      var(--primary),
+      var(--info),
+      var(--success),
+      var(--warning),
+      var(--accent)
+    );
+    opacity: 0.7;
+  }

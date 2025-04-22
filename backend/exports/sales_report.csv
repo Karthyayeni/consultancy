@@ -1,0 +1,12 @@
+"OrderID","CustomerID","CustomerName","CustomerEmail","TotalAmount","PlacedAt","ItemNames","ItemPrices","Quantities","ItemCount"
+"67ff45775cd42322cd88ab7e","67fbed4c5686f630f7faa502","Hema","hema@gmail.com",65,"2025-04-16T05:51:51.873Z","Aavin Milk (Standard), Milky Mist Curd","20, 45","1, 1",2
+"67ff46065cd42322cd88aba4","67fbed4c5686f630f7faa502","Hema","hema@gmail.com",210,"2025-04-16T05:54:14.984Z","Kichalli Samba Rice, Organic Red Rice","110, 100","1, 1",2
+"67ff46435cd42322cd88abba","67fbeb2a456d3da7f53c43d8","Kavya","kavya@gmail.com",170,"2025-04-16T05:55:15.239Z","Aavin Butter, Aavin Ghee","50, 20","3, 1",2
+"67ff4f625cd42322cd88abf0","67fbeb2a456d3da7f53c43d8","Kavya","kavya@gmail.com",23,"2025-04-16T06:34:10.173Z","Aavin Flavored Milk (Rose/Badam)","23","1",1
+"67ff522a5cd42322cd88ac2c","67fbeb2a456d3da7f53c43d8","Kavya","kavya@gmail.com",20,"2025-04-16T06:46:02.464Z","Aavin Ghee","20","1",1
+"680075dfffffddebfb3614b2","67fbeb2a456d3da7f53c43d8","Kavya","kavya@gmail.com",40,"2025-04-17T03:30:39.359Z","Arokya Milk","20","2",1
+"68007b4c62976a0f5ed1818c","67fbeb2a456d3da7f53c43d8","Kavya","kavya@gmail.com",240,"2025-04-17T03:53:48.844Z","Aavin Paneer, Milky Mist Curd","150, 45","1, 2",2
+"68007b7f62976a0f5ed181b0","67fbeb2a456d3da7f53c43d8","Kavya","kavya@gmail.com",60,"2025-04-17T03:54:39.094Z","Aavin Milk (Standard), Aavin Ghee","20, 20","1, 2",2
+"68007d3ad218fef049fa882c","67fbeb2a456d3da7f53c43d8","Kavya","kavya@gmail.com",320,"2025-04-17T04:02:02.374Z","Idli Rice, Kichalli Samba Rice","100, 110","1, 2",2
+"68007d65d218fef049fa8849","67fbeb2a456d3da7f53c43d8","Kavya","kavya@gmail.com",100,"2025-04-17T04:02:45.645Z","Aavin Butter","50","2",1
+"68007e41d218fef049fa8879","67fbeb2a456d3da7f53c43d8","Kavya","kavya@gmail.com",100,"2025-04-17T04:06:25.534Z","Idli Rice","100","1",1

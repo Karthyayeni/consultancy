@@ -1,0 +1,120 @@
+/* Admin Orders Section Styles */
+.admin-orders-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .admin-orders-section h2 {
+    color: #3a3a3a;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #6366f1;
+    display: inline-block;
+  }
+  
+  /* Orders List Container */
+  .orders-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  /* Order Card Styles */
+  .order-card {
+    background: linear-gradient(145deg, #ffffff, #f5f7ff);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-left: 4px solid #6366f1;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.15);
+  }
+  
+  .order-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #6366f1 50%, transparent 50%);
+    border-radius: 0 0 0 12px;
+    opacity: 0.7;
+  }
+  
+  .order-card p {
+    margin: 0.6rem 0;
+    color: #4b5563;
+    font-size: 0.95rem;
+  }
+  
+  .order-card p strong {
+    color: #2a2a2a;
+    font-weight: 600;
+  }
+  
+  .order-card p:first-of-type {
+    margin-top: 0;
+  }
+  
+  /* Price and date highlighting */
+  .order-card p:nth-child(2) strong + span {
+    color: #6366f1;
+    font-weight: 600;
+  }
+  
+  /* Item List Styles */
+  .order-card ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    border-top: 1px dashed #d1d5db;
+    padding-top: 0.75rem;
+  }
+  
+  .order-card ul li {
+    padding: 0.4rem 0.5rem;
+    margin-bottom: 0.4rem;
+    background-color: rgba(244, 244, 250, 0.8);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #4b5563;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .order-card ul li:hover {
+    background-color: rgba(236, 236, 254, 0.8);
+  }
+  
+  /* Empty State */
+  .admin-orders-section > p {
+    text-align: center;
+    padding: 3rem 0;
+    color: #6b7280;
+    font-size: 1.1rem;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    border: 1px dashed #d1d5db;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .orders-list {
+      grid-template-columns: 1fr;
+    }
+    
+    .admin-orders-section {
+      padding: 1rem;
+    }
+  }
