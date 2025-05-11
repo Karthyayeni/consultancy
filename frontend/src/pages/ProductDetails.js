@@ -182,7 +182,7 @@ const ProductDetail = () => {
     <div className="product-detail-container">
       <div className="product-detail-card">
         <div className="product-image-container">
-          <img src={`http://localhost:5000${product.image}`} alt={product.name} className="product-image" />
+          <img src={`https://consultancy-1-tdn6.onrender.com${product.image}`} alt={product.name} className="product-image" />
         </div>
         <div className="product-info-container">
           <h1 className="product-title">{product.name}</h1>
@@ -306,7 +306,7 @@ const ProductDetail = () => {
     {similarProducts.map((item) => (
       <Link to={`/product/${item._id}`} key={item._id} className="similar-product-card-link">
         <div className="similar-product-card">
-          <img src={`http://localhost:5000${item.image}`} alt={item.name} />
+          <img src={`https://consultancy-1-tdn6.onrender.com${item.image}`} alt={item.name} />
           <h4 className="product-name">{item.name}</h4>
           <p className="product-price">₹{item.price}</p>
         </div>

@@ -270,7 +270,7 @@ const Home = () => {
             filteredProducts.map((product) => (
               <div key={product._id} className="product-card">
                 <img 
-                  src={`http://localhost:5000${product.image}`} 
+                  src={`https://consultancy-1-tdn6.onrender.com${product.image}`} 
                   alt={product.name} 
                   className="product-image" 
                 />

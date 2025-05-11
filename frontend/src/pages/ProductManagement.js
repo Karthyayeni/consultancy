@@ -265,7 +265,7 @@ const AdminDashboard = () => {
                 <div className="product-image-container-1">
                   {product.image ? (
                     <img 
-                      src={`http://localhost:5000${product.image}`} 
+                      src={`https://consultancy-1-tdn6.onrender.com${product.image}`} 
                       alt={product.name} 
                       className="product-image" 
                     />

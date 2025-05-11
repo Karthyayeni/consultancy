@@ -265,7 +265,7 @@ const Products = () => {
                         <span className="out-of-stock">Out of Stock</span>
                       }
                     </div>
-                    <img src={`http://localhost:5000${product.image}`} alt={product.name} className="product-image" />
+                    <img src={`https://consultancy-1-tdn6.onrender.com${product.image}`} alt={product.name} className="product-image" />
                     <div className="product-details">
                       <h3 className="product-name">{product.name}</h3>
                       <span className="product-price">₹{product.price}</span>
