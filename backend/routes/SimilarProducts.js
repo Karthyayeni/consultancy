@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getSimilarProducts } = require('../controllers/productController');
+const { getSimilarProducts } = require('../controllers/ProductController');
 
 router.get('/similar/:id', getSimilarProducts);
 

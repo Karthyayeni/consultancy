@@ -414,7 +414,7 @@
   font-size: 12px;
   font-weight: 600;
 }
-
+    
 @media (max-width: 768px) {
   .filter-container {
     flex-direction: column;
