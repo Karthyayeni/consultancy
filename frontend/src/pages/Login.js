@@ -18,7 +18,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", user);
+      const response = await axios.post("https://consultancy-1-tdn6.onrender.com/api/auth/login", user);
 
       if (response.data.token) {
         const expiryTime = new Date().getTime() + 60 * 60 * 1000;

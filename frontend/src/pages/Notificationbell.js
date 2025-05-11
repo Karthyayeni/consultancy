@@ -10,7 +10,7 @@ const NotificationBell = ({ userId }) => {
 
   const fetchNotifications = async () => {
   try {
-    const response = await axios.get(`http://localhost:5000/admin/notifications/${userId}`);
+    const response = await axios.get(`https://consultancy-1-tdn6.onrender.com/admin/notifications/${userId}`);
     setNotifications(response.data);
   } catch (error) {
     console.error('Error fetching notifications:', error);
@@ -19,7 +19,7 @@ const NotificationBell = ({ userId }) => {
 
 
   const markAllAsRead = async () => {
-    await axios.put(`http://localhost:5000/api/notifications/mark-read/${userId}`);
+    await axios.put(`https://consultancy-1-tdn6.onrender.com/api/notifications/mark-read/${userId}`);
     fetchNotifications();
   };
 

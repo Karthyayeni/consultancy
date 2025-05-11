@@ -51,7 +51,7 @@ const Signup = () => {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/auth/signup", {
+      await axios.post("https://consultancy-1-tdn6.onrender.com/api/auth/signup", {
         name: user.name,
         email: user.email,
         phone: user.phone,

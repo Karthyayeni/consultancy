@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 
@@ -18,7 +18,7 @@ const Cart = () => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/cart/${userId}`);
+        const { data } = await axios.get(`https://consultancy-1-tdn6.onrender.com/api/cart/${userId}`);
         setCartItems(data.items || []);
       } catch (error) {
         console.error('Error fetching cart:', error);
@@ -27,7 +27,7 @@ const Cart = () => {
   
     const fetchUserDetails = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/user/${userId}`);
+        const { data } = await axios.get(`https://consultancy-1-tdn6.onrender.com/api/user/${userId}`);
         setUserDetails(data);
         setAddress(data.address || '');
       } catch (error) {
@@ -49,7 +49,7 @@ const Cart = () => {
     if (newQty < 1) return;
 
     try {
-      await axios.put(`http://localhost:5000/api/cart/update/${userId}`, {
+      await axios.put(`https://consultancy-1-tdn6.onrender.com/api/cart/update/${userId}`, {
         itemName,
         quantity: newQty,
       });
@@ -65,7 +65,7 @@ const Cart = () => {
 
   const removeItem = async (itemName) => {
     try {
-      await axios.delete(`http://localhost:5000/api/cart/remove/${userId}`, {
+      await axios.delete(`https://consultancy-1-tdn6.onrender.com/api/cart/remove/${userId}`, {
         data: { itemName },
       });
 
@@ -88,7 +88,7 @@ const Cart = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/order', {
+      await axios.post('https://consultancy-1-tdn6.onrender.com/api/order', {
         userId,
         items: cartItems,
         totalAmount,
@@ -96,7 +96,7 @@ const Cart = () => {
       });
 
       setOrderPlaced(true);
-      await axios.delete(`http://localhost:5000/api/cart/clear/${userId}`);
+      await axios.delete(`https://consultancy-1-tdn6.onrender.com/api/cart/clear/${userId}`);
 
       setTimeout(() => {
         setCartItems([]);

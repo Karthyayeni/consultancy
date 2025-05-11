@@ -19,7 +19,21 @@ connectDB();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://consultancy-duek.onrender.com",
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+}));
 
 app.use('/api/user', userRoutes);
 app.use('/api/cart', cartRoutes);

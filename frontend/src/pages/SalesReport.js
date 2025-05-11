@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Bar,
   BarChart,
@@ -27,7 +27,7 @@ const SalesReport = () => {
     setLoading(true);
     try {
       const query = fromDate && toDate ? `?from=${fromDate}&to=${toDate}` : '';
-      const res = await axios.get(`http://localhost:5000/api/sales-report${query}`);
+      const res = await axios.get(`https://consultancy-1-tdn6.onrender.com/api/sales-report${query}`);
       setReport(res.data);
     } catch (err) {
       console.error('Error fetching report:', err);
@@ -44,7 +44,7 @@ const SalesReport = () => {
     try {
       const query = fromDate && toDate ? `?from=${fromDate}&to=${toDate}` : '';
       const detailLevel = `&detail=${downloadType}`;
-      const response = await axios.get(`http://localhost:5000/api/export/csv${query}${detailLevel}`, {
+      const response = await axios.get(`https://consultancy-1-tdn6.onrender.com/api/export/csv${query}${detailLevel}`, {
         responseType: 'blob',
       });
       const url = window.URL.createObjectURL(new Blob([response.data]));

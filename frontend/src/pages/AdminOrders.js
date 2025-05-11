@@ -10,7 +10,7 @@ const AdminOrders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/order/all');
+        const { data } = await axios.get('https://consultancy-1-tdn6.onrender.com/api/order/all');
         setOrders(data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -24,9 +24,9 @@ const AdminOrders = () => {
 
   const markAsDelivered = async (orderId) => {
     try {
-      await axios.put(`http://localhost:5000/api/order/${orderId}/deliver`);
+      await axios.put(`https://consultancy-1-tdn6.onrender.com/api/order/${orderId}/deliver`);
       // Re-fetch orders to reflect update
-      const { data } = await axios.get('http://localhost:5000/api/order/all');
+      const { data } = await axios.get('https://consultancy-1-tdn6.onrender.com/api/order/all');
       setOrders(data);
     } catch (error) {
       console.error('Failed to mark as delivered', error);
@@ -35,10 +35,10 @@ const AdminOrders = () => {
 
   const markAsShipped = async (orderId) => {
     try {
-      await axios.put(`http://localhost:5000/api/order/${orderId}/ship`);
+      await axios.put(`https://consultancy-1-tdn6.onrender.com/api/order/${orderId}/ship`);
 
       
-      const { data } = await axios.get('http://localhost:5000/api/order/all');
+      const { data } = await axios.get('https://consultancy-1-tdn6.onrender.com/api/order/all');
       setOrders(data);
     } catch (error) {
       console.error('Failed to mark as shipped', error);

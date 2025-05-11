@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './UserAvatar.css';
 
 const UserAvatar = () => {
@@ -14,7 +14,7 @@ const UserAvatar = () => {
 
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/user/${userId}`);
+        const res = await axios.get(`https://consultancy-1-tdn6.onrender.com/api/user/${userId}`);
         setUser(res.data);
         setFormData(res.data); // Pre-fill editable fields
       } catch (error) {
@@ -43,7 +43,7 @@ const UserAvatar = () => {
   const handleSave = async () => {
     const userId = localStorage.getItem('UserId');
     try {
-      const response = await axios.put(`http://localhost:5000/api/user/${userId}`, formData, {
+      const response = await axios.put(`https://consultancy-1-tdn6.onrender.com/api/user/${userId}`, formData, {
         headers: {
           'Content-Type': 'application/json',
         },

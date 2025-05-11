@@ -21,10 +21,10 @@ const ProductDetail = () => {
   const fetchProduct = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:5000/api/products/${id}`);
+      const res = await axios.get(`https://consultancy-1-tdn6.onrender.com/api/products/${id}`);
       setProduct(res.data);
 
-      const reviewsRes = await axios.get(`http://localhost:5000/api/reviews/${id}`);
+      const reviewsRes = await axios.get(`https://consultancy-1-tdn6.onrender.com/api/reviews/${id}`);
       setReviews(reviewsRes.data.reviews || []);
 
       setLoading(false);
@@ -37,7 +37,7 @@ const ProductDetail = () => {
 
   const fetchSimilarProducts = useCallback(async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/products/similar/${id}`);
+      const res = await axios.get(`https://consultancy-1-tdn6.onrender.com/api/products/similar/${id}`);
       setSimilarProducts(res.data.similar);
     } catch (error) {
       console.error('Error fetching similar products:', error);
@@ -86,7 +86,7 @@ const ProductDetail = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/cart/add', {
+      await axios.post('https://consultancy-1-tdn6.onrender.com/api/cart/add', {
         userId,
         item: {
           productId: id,
@@ -122,7 +122,7 @@ const ProductDetail = () => {
     setSubmittingReview(true);
 
     try {
-      await axios.post('http://localhost:5000/api/reviews', {
+      await axios.post('https://consultancy-1-tdn6.onrender.com/api/reviews', {
         productId: id,
         userId: localStorage.getItem('UserId'),
         rating,

@@ -22,7 +22,7 @@ const Products = () => {
 
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/products');
+        const { data } = await axios.get('https://consultancy-1-tdn6.onrender.com/api/products');
         setAllProducts(data);
         
         // Find max price for range filter
@@ -53,7 +53,7 @@ const Products = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/cart/add', {
+      await axios.post('https://consultancy-1-tdn6.onrender.com/api/cart/add', {
         userId,
         item: {
           name: product.name,

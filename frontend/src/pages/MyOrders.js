@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './MyOrders.css';
 
 const MyOrders = () => {
@@ -11,7 +11,7 @@ const MyOrders = () => {
   useEffect(() => {
     const fetchMyOrders = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/order/myorders', {
+        const { data } = await axios.get('https://consultancy-1-tdn6.onrender.com/api/order/myorders', {
           params: { userId },
         });
         setOrders(data);
@@ -32,7 +32,7 @@ const MyOrders = () => {
 
   const handleCancelOrder = async (orderId) => {
     try {
-      await axios.put(`http://localhost:5000/api/order/${orderId}/cancel`);
+      await axios.put(`https://consultancy-1-tdn6.onrender.com/api/order/${orderId}/cancel`);
       setOrders((prev) =>
         prev.map((order) =>
           order._id === orderId ? { ...order, status: 'Cancelled' } : order

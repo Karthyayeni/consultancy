@@ -56,7 +56,7 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/products');
+        const { data } = await axios.get('https://consultancy-1-tdn6.onrender.com/api/products');
         setProducts(data);
     
         const allCategories = [...new Set(data.map(p => p.category))];
@@ -119,7 +119,7 @@ const Home = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/order/myorders', {
+        const { data } = await axios.get('https://consultancy-1-tdn6.onrender.com/api/order/myorders', {
           params: { userId },
         });
 

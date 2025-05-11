@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './AdminCustomers.css';
 
 const AdminCustomers = () => {
@@ -14,7 +14,7 @@ const AdminCustomers = () => {
 
   const fetchCustomers = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/customers');
+      const res = await axios.get('https://consultancy-1-tdn6.onrender.com/api/customers');
       const filtered = res.data.filter(c => c.name.toLowerCase() !== 'admin');
       setCustomers(filtered);
     } catch (error) {
@@ -39,7 +39,7 @@ const AdminCustomers = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this customer?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/customers/${id}`);
+        await axios.delete(`https://consultancy-1-tdn6.onrender.com/api/customers/${id}`);
         fetchCustomers();
       } catch (error) {
         console.error('Error deleting customer:', error);
@@ -49,7 +49,7 @@ const AdminCustomers = () => {
 
   const handleUpdate = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/customers/${id}`, editData);
+      await axios.put(`https://consultancy-1-tdn6.onrender.com/api/customers/${id}`, editData);
       setEditId(null);
       fetchCustomers();
     } catch (error) {

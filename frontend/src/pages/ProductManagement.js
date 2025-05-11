@@ -15,7 +15,7 @@ const AdminDashboard = () => {
   const [activeTab] = useState('');
 
   const fetchProducts = async () => {
-    const { data } = await axios.get('http://localhost:5000/api/products');
+    const { data } = await axios.get('https://consultancy-1-tdn6.onrender.com/api/products');
     setProducts(data);
   };
 
@@ -32,10 +32,10 @@ const AdminDashboard = () => {
     if (imageFile) formData.append('image', imageFile);
 
     if (editingId) {
-      await axios.put(`http://localhost:5000/api/products/${editingId}`, formData);
+      await axios.put(`https://consultancy-1-tdn6.onrender.com/api/products/${editingId}`, formData);
       setEditingId(null);
     } else {
-      await axios.post('http://localhost:5000/api/products', formData);
+      await axios.post('https://consultancy-1-tdn6.onrender.com/api/products', formData);
     }
 
     setForm({ name: '', price: '', category: '', stock: '', description: '' });
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
-      await axios.delete(`http://localhost:5000/api/products/${id}`);
+      await axios.delete(`https://consultancy-1-tdn6.onrender.com/api/products/${id}`);
       fetchProducts();
     }
   };
