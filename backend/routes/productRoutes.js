@@ -7,7 +7,7 @@ const {
   getProductById,
   updateProduct,
   deleteProduct
-} = require('../controllers/productController');
+} = require('../controllers/ProductController');
 const { getSimilarProducts } = require('../controllers/SimilarProducts');
 router.post('/', upload.single('image'), createProduct);
 router.get('/', getProducts);
