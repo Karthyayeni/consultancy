@@ -68,8 +68,7 @@
       transform: translateY(0);
     }
   }
-  
-  /* Responsive adjustments */
+
   @media (max-width: 768px) {
     .user-details-dropdown {
       width: 200px;

@@ -1,18 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import './MyOrders.css';
+
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Assuming userId is stored in localStorage or a context
-  const userId = localStorage.getItem('UserId'); // Update with your method for getting userId
+  const userId = localStorage.getItem('UserId');
 
   useEffect(() => {
     const fetchMyOrders = async () => {
       try {
         const { data } = await axios.get('http://localhost:5000/api/order/myorders', {
-          params: { userId }, // Send userId in query or body
+          params: { userId },
         });
         setOrders(data);
       } catch (error) {
@@ -30,6 +30,19 @@ const MyOrders = () => {
     }
   }, [userId]);
 
+  const handleCancelOrder = async (orderId) => {
+    try {
+      await axios.put(`http://localhost:5000/api/order/${orderId}/cancel`);
+      setOrders((prev) =>
+        prev.map((order) =>
+          order._id === orderId ? { ...order, status: 'Cancelled' } : order
+        )
+      );
+    } catch (error) {
+      console.error('Error cancelling order:', error);
+    }
+  };
+
   return (
     <section className="my-orders-section">
       <h2>My Orders 📦</h2>
@@ -43,9 +56,15 @@ const MyOrders = () => {
           ) : (
             orders.map((order, idx) => (
               <div key={idx} className="order-card">
-                <p><strong>User:</strong> {order.userId ? order.userId.name : 'Unknown User'}</p>
+                <p><strong>User:</strong> {order.userId?.name || 'Unknown User'}</p>
                 <p><strong>Total:</strong> ₹{order.totalAmount}</p>
                 <p><strong>Placed At:</strong> {new Date(order.placedAt).toLocaleString()}</p>
+                <p>
+                  <strong>Status:</strong>{' '}
+                  <span className={`status ${order.status.toLowerCase()}`}>
+                    {order.status}
+                  </span>
+                </p>
                 <ul>
                   {order.items.map((item, i) => (
                     <li key={i}>
@@ -53,6 +72,15 @@ const MyOrders = () => {
                     </li>
                   ))}
                 </ul>
+
+                {order.status !== 'Delivered' && order.status !== 'Cancelled' && (
+                  <button
+                    className="cancel-button"
+                    onClick={() => handleCancelOrder(order._id)}
+                  >
+                    Cancel Order
+                  </button>
+                )}
               </div>
             ))
           )}

@@ -1,14 +1,20 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [showCheckout, setShowCheckout] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [userDetails, setUserDetails] = useState(null);
+  const [address, setAddress] = useState('');
+  const [useSavedAddress, setUseSavedAddress] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const navigate = useNavigate();
   const userId = localStorage.getItem('UserId');
-
+  console.log(userId);
   useEffect(() => {
     const fetchCart = async () => {
       try {
@@ -18,10 +24,27 @@ const Cart = () => {
         console.error('Error fetching cart:', error);
       }
     };
-
-    fetchCart();
+  
+    const fetchUserDetails = async () => {
+      try {
+        const { data } = await axios.get(`http://localhost:5000/api/user/${userId}`);
+        setUserDetails(data);
+        setAddress(data.address || '');
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      }
+    };
+  
+    // Check if user is logged in
+    if (userId) {
+      setIsLoggedIn(true);
+      fetchCart();
+      fetchUserDetails();
+    } else {
+      setIsLoggedIn(false);
+    }
   }, [userId]);
-
+  
   const updateQuantity = async (itemName, newQty) => {
     if (newQty < 1) return;
 
@@ -59,31 +82,51 @@ const Cart = () => {
   );
 
   const placeOrder = async () => {
+    if (!address.trim()) {
+      alert('Please provide a delivery address.');
+      return;
+    }
+
     try {
-      // Send order to backend
       await axios.post('http://localhost:5000/api/order', {
         userId,
         items: cartItems,
         totalAmount,
+        address,
       });
 
-      
-
       setOrderPlaced(true);
-      // Optionally clear cart from database
       await axios.delete(`http://localhost:5000/api/cart/clear/${userId}`);
-  
-      // Clear cart from state
+
       setTimeout(() => {
         setCartItems([]);
         setShowCheckout(false);
-      }, 2000);  // 2-second delay
-
+      }, 2000);
     } catch (error) {
       console.error('Error placing order:', error);
     }
   };
-  
+
+  const handleLoginRedirect = () => {
+    navigate('/login', { state: { returnUrl: '/cart' } });
+  };
+
+  // If user is not logged in, show login prompt
+  if (!isLoggedIn) {
+    return (
+      <section className="cart-section">
+        <div className="cart-header">
+          <h2>Your Cart 🛒</h2>
+        </div>
+        <div className="login-prompt">
+          <p>Please log in to view your cart and make purchases.</p>
+          <button className="login-btn-1" onClick={handleLoginRedirect}>
+            Log In
+          </button>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="cart-section">
@@ -126,7 +169,6 @@ const Cart = () => {
                     Remove
                   </button>
                 </div>
-                
               </div>
             ))}
           </div>
@@ -135,6 +177,44 @@ const Cart = () => {
             <div className="checkout-modal">
               <div className="checkout-modal-content">
                 <h3>Checkout Summary 🧾</h3>
+
+                <div className="address-section">
+                  <label>
+                    <input
+                      type="radio"
+                      checked={useSavedAddress}
+                      onChange={() => {
+                        setUseSavedAddress(true);
+                        setAddress(userDetails?.address || '');
+                      }}
+                    />
+                    Use Saved Address: <strong>{userDetails?.address || 'Not Available'}</strong>
+                  </label>
+                  <br/>
+                  <label>
+                    <input
+                      type="radio"
+                      checked={!useSavedAddress}
+                      onChange={() => {
+                        setUseSavedAddress(false);
+                        setAddress('');
+                      }}
+                    />
+                    Enter New Address
+                  </label>
+
+                  {!useSavedAddress && (
+                    <textarea
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      placeholder="Enter delivery address"
+                      rows="3"
+                      required
+                    />
+                  )}
+                </div>
+
+                {/* Cart Summary */}
                 <ul>
                   {cartItems.map((item, i) => (
                     <li key={i}>
@@ -142,11 +222,14 @@ const Cart = () => {
                     </li>
                   ))}
                 </ul>
+
                 <h4>Total Amount: ₹{totalAmount}</h4>
+
                 <button className="place-order-btn" onClick={placeOrder}>
                   Place Order
                 </button>
                 {orderPlaced && <p>Order placed successfully! 🎉</p>}
+
                 <button className="close-btn" onClick={() => setShowCheckout(false)}>
                   Close
                 </button>

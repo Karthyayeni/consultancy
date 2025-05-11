@@ -32,7 +32,7 @@ const Login = () => {
         if (response.data.user.email === "admin@admin.com") {
           navigate("/admin");
         } else {
-          navigate("/home");
+          navigate("/");
         }
       } else {
         alert("Invalid login credentials!");

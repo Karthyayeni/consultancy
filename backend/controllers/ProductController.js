@@ -49,7 +49,6 @@ const updateProduct = async (req, res) => {
       const { name, category, price, stock, description } = req.body;
       const image = req.file ? req.file.filename : null;
       console.log(image);
-      // Fetch existing product if no image uploaded
       const existingProduct = await Product.findById(req.params.id);
   
       const updatedData = {

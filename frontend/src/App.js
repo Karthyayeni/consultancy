@@ -6,9 +6,10 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminOrders from "./pages/AdminOrders";
 import Cart from "./pages/Cart";
 import Contact from "./pages/Contact";
-import Login from "./pages/Login";
+import Login from "./pages/login";
 import MyOrders from './pages/MyOrders';
 import Products from './pages/Product';
+import ProductDetail from "./pages/ProductDetails";
 import ProductManagement from './pages/ProductManagement';
 import SalesReport from "./pages/SalesReport";
 import Signup from "./pages/Signup";
@@ -16,8 +17,8 @@ function App() {
   return (
     <Router>
       <Routes>
-      <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Login />} />
+      <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/admin/products" element={<ProductManagement />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/admin" element={<AdminDashboard/>}/>
@@ -29,6 +30,7 @@ function App() {
         <Route path="/admin/orders" element={<AdminOrders />} />
         <Route path="/myorders" element={<MyOrders />} />
         <Route path="/admin/sales-report" element={<SalesReport/>} />
+        <Route path="/product/:id" element={<ProductDetail />} />
       </Routes>
     </Router>
   );

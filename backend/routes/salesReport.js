@@ -7,10 +7,8 @@ const { Parser } = require('json2csv');
 const fs = require('fs');
 const path = require('path');
 
-// Helper to format dates
 const formatDate = (date) => new Date(date).toISOString().split('T')[0];
 
-// 🧾 Full Sales Report Endpoint
 router.get('/sales-report', async (req, res) => {
   try {
     const { startDate, endDate } = req.query;
@@ -21,12 +19,10 @@ router.get('/sales-report', async (req, res) => {
       placedAt: { $gte: start, $lte: end },
     });
 
-    // Basic Stats
     const totalOrders = orders.length;
     const totalSales = orders.reduce((acc, order) => acc + order.totalAmount, 0);
     const totalItemsSold = orders.reduce((acc, order) => acc + order.items.reduce((sum, item) => sum + item.quantity, 0), 0);
 
-    // Product Insights
     const productSalesMap = new Map();
     for (const order of orders) {
       for (const item of order.items) {
@@ -56,7 +52,6 @@ router.get('/sales-report', async (req, res) => {
     }
     const categoryDistribution = Array.from(categorySalesMap.entries()).map(([category, revenue]) => ({ category, revenue }));
 
-    // Low stock alerts
     const lowStock = products.filter(p => p.stock <= 5);
 
     res.status(200).json({

@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './ProductManagement.css';
+
 const categories = ['Dairy', 'Rice', 'Beverages', 'Oils and Ghees', 'Dals', 'Spices', 'Personal Care', 'Household Essentials'];
 
 const AdminDashboard = () => {
@@ -9,7 +10,9 @@ const AdminDashboard = () => {
   const [imageFile, setImageFile] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [filter, setFilter] = useState('');
-  const [activeTab, setActiveTab] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [stockFilter, setStockFilter] = useState('all');
+  const [activeTab] = useState('');
 
   const fetchProducts = async () => {
     const { data } = await axios.get('http://localhost:5000/api/products');
@@ -20,6 +23,7 @@ const AdminDashboard = () => {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
   const handleImageChange = (e) => setImageFile(e.target.files[0]);
+  const handleSearchChange = (e) => setSearchQuery(e.target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,7 +60,6 @@ const AdminDashboard = () => {
     });
     setEditingId(product._id);
     
-    // Scroll to form
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -70,8 +73,6 @@ const AdminDashboard = () => {
     }
   };
 
-  const filteredProducts = filter ? products.filter(p => p.category === filter) : products;
-
   const getStockClass = (stock) => {
     const stockNum = parseInt(stock);
     if (stockNum <= 0) return "out-of-stock";
@@ -79,11 +80,53 @@ const AdminDashboard = () => {
     return "";
   };
 
+  const filteredProducts = products.filter(product => {
+    const matchesCategory = filter === '' || product.category === filter;
+    const stockNum = parseInt(product.stock);
+    const matchesStockFilter = 
+      stockFilter === 'all' || 
+      (stockFilter === 'low' && stockNum > 0 && stockNum < 10) ||
+      (stockFilter === 'out' && stockNum <= 0);
+
+    const matchesSearch =
+      searchQuery === '' ||
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.category.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    return matchesCategory && matchesStockFilter && matchesSearch;
+  });
+
   return (
     <div className="admin-dashboard">
       <h1 className="dashboard-header">RAJAA STORES Product <span>🛒</span></h1>
 
       <>
+        <div className="filter-container">
+          <div className="search-container">
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="search-input"
+            />
+          </div>
+          
+          <div className="stock-filter">
+            <label className="filter-label">Stock Level: </label>
+            <select 
+              value={stockFilter} 
+              onChange={(e) => setStockFilter(e.target.value)}
+              className="stock-select"
+            >
+              <option value="all">All Products</option>
+              <option value="low">Low Stock (&lt; 10)</option>
+              <option value="out">Out of Stock</option>
+            </select>
+          </div>
+        </div>
+
         <div className="category-pills">
           <button 
             className={`category-pill ${filter === '' ? 'active' : ''}`} 
@@ -121,9 +164,9 @@ const AdminDashboard = () => {
                   required 
                 />
               </div>
-<br></br>
+
               <div className="form-group">
-                <label className="form-label" htmlFor="price">Price (₹) </label>
+                <label className="form-label" htmlFor="price">Price (₹)</label>
                 <input 
                   id="price"
                   type="number" 
@@ -135,7 +178,6 @@ const AdminDashboard = () => {
                   required 
                 />
               </div>
-              <br></br>
               <div className="form-group">
                 <label className="form-label" htmlFor="category">Category </label>
                 <select 
@@ -146,12 +188,11 @@ const AdminDashboard = () => {
                   className="form-select" 
                   required
                 >
-                    <br></br>
                   <option value="">Select Category</option>
                   {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
                 </select>
               </div>
-              <br></br>
+              
               <div className="form-group">
                 <label className="form-label" htmlFor="stock">Stock Quantity </label>
                 <input 
@@ -165,7 +206,7 @@ const AdminDashboard = () => {
                   required 
                 />
               </div>
-              <br></br>
+
               <div className="form-group" style={{ gridColumn: 'span 2' }}>
                 <label className="form-label" htmlFor="description">Description </label>
                 <input
@@ -178,7 +219,7 @@ const AdminDashboard = () => {
                   className="form-input" 
                 />
               </div>
-              <br></br>
+              
               <div className="form-group" style={{ gridColumn: 'span 2' }}>
                 <label className="form-file-label" htmlFor="image">Product Image </label>
                 <input 
@@ -189,7 +230,7 @@ const AdminDashboard = () => {
                   accept="image/*" 
                 />
               </div>
-              <br></br>
+              
               <div className="form-buttons" style={{ display: 'flex', gap: '10px' }}>
                 {editingId && (
                   <button 
@@ -213,12 +254,15 @@ const AdminDashboard = () => {
           </form>
         </div>
 
-        {/* Products Grid */}
+        <div className="results-info">
+          <p>Showing {filteredProducts.length} of {products.length} products</p>
+        </div>
+
         {filteredProducts.length > 0 ? (
-          <div className="products-grid">
+          <div className="products-grid-1">
             {filteredProducts.map((product) => (
-              <div key={product._id} className="product-card">
-                <div className="product-image-container">
+              <div key={product._id} className="product-card-1">
+                <div className="product-image-container-1">
                   {product.image ? (
                     <img 
                       src={`http://localhost:5000${product.image}`} 
@@ -229,30 +273,36 @@ const AdminDashboard = () => {
                     <div className="product-image" style={{ backgroundColor: '#f3f4f6' }}></div>
                   )}
                   <div className="product-badge">{product.category}</div>
+                  {parseInt(product.stock) <= 0 && (
+                    <div className="product-badge out-of-stock-badge">Out of Stock</div>
+                  )}
+                  {parseInt(product.stock) > 0 && parseInt(product.stock) < 10 && (
+                    <div className="product-badge low-stock-badge">Low Stock</div>
+                  )}
                 </div>
-                <div className="product-content">
-                  <div className="product-header">
-                    <h2 className="product-name">{product.name}</h2>
-                    <p className="product-price">₹{product.price}</p>
+                <div className="product-content-1">
+                  <div className="product-header-1">
+                    <h2 className="product-name-1">{product.name}</h2>
+                    <p className="product-price-1">₹{product.price}</p>
                   </div>
-                  <p className="product-description">{product.description || 'No description available'}</p>
-                  <div className="product-meta">
+                  <p className="product-description-1">{product.description || 'No description available'}</p>
+                  <div className="product-meta-1">
                     <div className={`product-stock ${getStockClass(product.stock)}`}>
                       <span className="stock-indicator"></span>
                       Stock: {product.stock}
                     </div>
                   </div>
-                  <div className="product-actions" style={{ display: 'flex', gap: '10px' }}>
+                  <div className="product-actions-1" style={{ display: 'flex', gap: '10px' }}>
                     <button 
                       onClick={() => handleEdit(product)} 
-                      className="btn-edit"
+                      className="btn-edit-1"
                       style={{ width: 'auto', padding: '6px 12px' }}
                     >
                       Edit
                     </button>
                     <button 
                       onClick={() => handleDelete(product._id)} 
-                      className="btn-delete"
+                      className="btn-delete-1"
                       style={{ width: 'auto', padding: '6px 12px' }}
                     >
                       Delete
@@ -267,7 +317,9 @@ const AdminDashboard = () => {
             <div className="empty-icon">📦</div>
             <h3 className="empty-title">No products found</h3>
             <p className="empty-description">
-              {filter ? `No products found in the "${filter}" category.` : 'Start by adding your first product.'}
+              {searchQuery ? 'No products match your search criteria.' : 
+               filter ? `No products found in the "${filter}" category.` : 
+               'Start by adding your first product.'}
             </p>
           </div>
         )}
