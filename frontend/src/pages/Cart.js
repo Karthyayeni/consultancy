@@ -149,7 +149,7 @@ const Cart = () => {
             {cartItems.map((item, index) => (
               <div key={index} className="cart-item-card">
                 <img
-                  src={`http://localhost:5000${item.image}`}
+                  src={`https://consultancy-1-tdn6.onrender.com${item.image}`}
                   alt={item.name}
                   className="cart-item-image"
                 />
