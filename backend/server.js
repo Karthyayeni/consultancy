@@ -47,4 +47,8 @@ app.use('/api',salesRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/admin', adminRoutes);
 
+app.post('/webhook', (req, res) => {
+  console.log('Webhook received:', req.body);
+  res.status(200).send('Webhook received');
+});
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
