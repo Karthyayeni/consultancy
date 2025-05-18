@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../server');
+const mongoose = require('mongoose');
 
 describe('GET /api/customers', () => {
   it('should return a list of customers and print the response', async () => {
@@ -8,3 +9,6 @@ describe('GET /api/customers', () => {
   });
 });
 
+afterAll(async () => {
+  await mongoose.connection.close();
+});
