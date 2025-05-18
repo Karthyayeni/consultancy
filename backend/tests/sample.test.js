@@ -1,5 +1,5 @@
 const request = require('supertest');
-const {server,app} = require('../server');
+const server = require('../server');
 const mongoose = require('mongoose');
 
 afterAll(async () => {
@@ -17,7 +17,7 @@ afterAll(async () => {
 
 describe('GET /api/customers', () => {
   it('should return a list of customers and print the response', async () => {
-    const res = await request(app).get('/api/customers');
+    const res = await request(server).get('/api/customers');
     console.log('Response body:', res.body); 
   });
 });
