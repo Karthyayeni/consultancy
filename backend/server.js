@@ -52,3 +52,4 @@ app.post('/github-webhook', (req, res) => {
   res.status(200).send('Received');
 });
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+module.exports = app;
