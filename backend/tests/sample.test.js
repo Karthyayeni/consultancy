@@ -11,7 +11,7 @@ describe('GET /api/customers', () => {
 
 afterAll(async () => {
   await mongoose.connection.close();
-  if (server && server.close) {
+  if (app && app.close) {
     await app.close();
   }
 });
