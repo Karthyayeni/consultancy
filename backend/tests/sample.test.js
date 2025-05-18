@@ -10,11 +10,8 @@ describe('GET /api/customers', () => {
 });
 
 afterAll(async () => {
-  // ✅ Close Mongoose connection
   await mongoose.connection.close();
-
-  // ✅ Close the server if it was started manually
   if (server && server.close) {
-    await server.close();
+    await app.close();
   }
 });
