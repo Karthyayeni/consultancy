@@ -1,6 +1,19 @@
 const request = require('supertest');
-const app = require('../server');
+const {server,app} = require('../server');
 const mongoose = require('mongoose');
+
+afterAll(async () => {
+  await mongoose.connection.close();
+
+  if (server && server.close) {
+    await new Promise((resolve, reject) => {
+      server.close(err => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+  }
+});
 
 describe('GET /api/customers', () => {
   it('should return a list of customers and print the response', async () => {
@@ -9,9 +22,3 @@ describe('GET /api/customers', () => {
   });
 });
 
-afterAll(async () => {
-  await mongoose.connection.close();
-  if (app && app.close) {
-    await app.close();
-  }
-});
