@@ -7,6 +7,7 @@ pipeline {
 
     environment {
         CI = 'true'
+        MONGO_URI='mongodb+srv://karthyayenip22cse:kavya123@cluster0.9uqygwk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
     }
 
     stages {
