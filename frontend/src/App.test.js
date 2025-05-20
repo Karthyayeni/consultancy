@@ -1,8 +1,14 @@
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import React from 'react';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+console.log(React);
+function Simple() {
+  return <div>Hello World</div>;
+}
+
+test('renders simple text', () => {
+  render(<Simple />);
+  const element = screen.getByText(/hello world/i);
+  expect(element).toBeInTheDocument();
 });

@@ -1,3 +1,4 @@
+import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Home from "./home/Home";
 import AboutUs from "./pages/AboutUs";
@@ -13,6 +14,7 @@ import ProductDetail from "./pages/ProductDetails";
 import ProductManagement from './pages/ProductManagement';
 import SalesReport from "./pages/SalesReport";
 import Signup from "./pages/Signup";
+console.log(React);
 function App() {
   return (
     <Router>

@@ -111,7 +111,6 @@ const Cart = () => {
     navigate('/login', { state: { returnUrl: '/cart' } });
   };
 
-  // If user is not logged in, show login prompt
   if (!isLoggedIn) {
     return (
       <section className="cart-section">
