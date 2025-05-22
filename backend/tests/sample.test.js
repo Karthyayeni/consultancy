@@ -16,7 +16,7 @@ afterAll(async () => {
 });
 
 describe('GET /api/customers', () => {
-  it('should return a list of customers and print the response', async () => {
+  it('should return a list of customers and print the responses', async () => {
     const res = await request(server).get('/api/customers');
     console.log('Response body:', res.body);
   });
